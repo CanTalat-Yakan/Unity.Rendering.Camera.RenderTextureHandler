@@ -21,7 +21,7 @@ namespace UnityEssentials
     {
         public static RenderTexture RenderTexture { get; private set; }
 
-        public RenderTextureSettings RenderTextureSettings;
+        public RenderTextureSettings Settings;
 
         private Camera _camera;
         private UIElementLink _image;
@@ -52,11 +52,11 @@ namespace UnityEssentials
 
         public void Update()
         {
-            if (RenderTextureSettings.RenderWidth != _lastRenderSize.x ||
-                RenderTextureSettings.RenderHeight != _lastRenderSize.y ||
-                RenderTextureSettings.AspectRatio != _lastAspectRatio ||
-                RenderTextureSettings.FilterMode != _lastFilterMode ||
-                RenderTextureSettings.HighDynamicRange != _lastHighDynamicRange)
+            if (Settings.RenderWidth != _lastRenderSize.x ||
+                Settings.RenderHeight != _lastRenderSize.y ||
+                Settings.AspectRatio != _lastAspectRatio ||
+                Settings.FilterMode != _lastFilterMode ||
+                Settings.HighDynamicRange != _lastHighDynamicRange)
             {
                 _isDirty = true;
             }
@@ -71,11 +71,11 @@ namespace UnityEssentials
                 AdjustAspectRatio();
             }
 
-            _lastRenderSize.x = RenderTextureSettings.RenderWidth;
-            _lastRenderSize.y = RenderTextureSettings.RenderHeight;
-            _lastAspectRatio = RenderTextureSettings.AspectRatio;
-            _lastFilterMode = RenderTextureSettings.FilterMode;
-            _lastHighDynamicRange = RenderTextureSettings.HighDynamicRange;
+            _lastRenderSize.x = Settings.RenderWidth;
+            _lastRenderSize.y = Settings.RenderHeight;
+            _lastAspectRatio = Settings.AspectRatio;
+            _lastFilterMode = Settings.FilterMode;
+            _lastHighDynamicRange = Settings.HighDynamicRange;
         }
 
         [ContextMenu("Update")]
@@ -103,13 +103,13 @@ namespace UnityEssentials
 
             _renderTexture = new RenderTexture((int)targetWidth, (int)targetHeight, 0)
             {
-                name = $"Camera RenderTexture @{(int)targetWidth}x{(int)targetHeight} {(RenderTextureSettings.HighDynamicRange ? "HDR" : "SRGB")} {RenderTextureSettings.FilterMode}",
+                name = $"Camera RenderTexture @{(int)targetWidth}x{(int)targetHeight} {(Settings.HighDynamicRange ? "HDR" : "SRGB")} {Settings.FilterMode}",
                 antiAliasing = 1,
                 anisoLevel = 0,
-                useMipMap = RenderTextureSettings.UseMipMap,
-                autoGenerateMips = RenderTextureSettings.UseMipMap,
-                filterMode = RenderTextureSettings.FilterMode,
-                graphicsFormat = RenderTextureSettings.HighDynamicRange
+                useMipMap = Settings.UseMipMap,
+                autoGenerateMips = Settings.UseMipMap,
+                filterMode = Settings.FilterMode,
+                graphicsFormat = Settings.HighDynamicRange
                     ? GraphicsFormat.R16G16B16A16_SFloat
                     : GraphicsFormat.R8G8B8A8_SRGB
             };
@@ -143,14 +143,14 @@ namespace UnityEssentials
             if (referenceAspectRatio > sourceAspectRatio)
             {
                 // Image is wider than the target aspect ratio, adjust width
-                targetWidth = RenderTextureSettings.RenderHeight * sourceAspectRatio;
-                targetHeight = RenderTextureSettings.RenderHeight;
+                targetWidth = Settings.RenderHeight * sourceAspectRatio;
+                targetHeight = Settings.RenderHeight;
             }
             else
             {
                 // Image is taller than the target aspect ratio, adjust height
-                targetWidth = RenderTextureSettings.RenderWidth;
-                targetHeight = RenderTextureSettings.RenderWidth / sourceAspectRatio;
+                targetWidth = Settings.RenderWidth;
+                targetHeight = Settings.RenderWidth / sourceAspectRatio;
             }
         }
 
@@ -172,18 +172,18 @@ namespace UnityEssentials
 
         private void ValidateRenderTextureSize()
         {
-            if (RenderTextureSettings.RenderWidth < 100)
-                RenderTextureSettings.RenderWidth = 100;
+            if (Settings.RenderWidth < 100)
+                Settings.RenderWidth = 100;
 
-            if (RenderTextureSettings.RenderHeight < 100)
-                RenderTextureSettings.RenderHeight = 100;
+            if (Settings.RenderHeight < 100)
+                Settings.RenderHeight = 100;
         }
 
         private void GetAspectRatios(out float screenAspectRatio, out float correctedAspectRatio, out float renderAspectRatio)
         {
             screenAspectRatio = (float)Screen.width / Screen.height;
-            correctedAspectRatio = RenderTextureSettings.AspectRatio == 0 ? screenAspectRatio : RenderTextureSettings.AspectRatio;
-            renderAspectRatio = (float)RenderTextureSettings.RenderWidth / RenderTextureSettings.RenderHeight;
+            correctedAspectRatio = Settings.AspectRatio == 0 ? screenAspectRatio : Settings.AspectRatio;
+            renderAspectRatio = (float)Settings.RenderWidth / Settings.RenderHeight;
         }
 
         private void UpdateScreenSize() =>
