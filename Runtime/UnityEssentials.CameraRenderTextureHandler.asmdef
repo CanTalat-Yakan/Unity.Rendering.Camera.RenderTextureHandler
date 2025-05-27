@@ -1,5 +1,5 @@
 {
-    "name": "UnityEssentials.RenderTextureCreator",
+    "name": "UnityEssentials.CameraRenderTextureHandler",
     "rootNamespace": "UnityEssentials",
     "references": [
         "GUID:52cfcc800872b5a42beb3d0feda1d60c",

@@ -1,5 +1,4 @@
 using System;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.UIElements;
@@ -18,7 +17,7 @@ namespace UnityEssentials
     }
 
     [RequireComponent(typeof(Camera))]
-    public partial class RenderTextureCreator : MonoBehaviour
+    public partial class CameraRenderTextureHandler : MonoBehaviour
     {
         public static RenderTexture RenderTexture { get; private set; }
 
@@ -91,7 +90,7 @@ namespace UnityEssentials
         }
     }
 
-    public partial class RenderTextureCreator : MonoBehaviour
+    public partial class CameraRenderTextureHandler : MonoBehaviour
     {
         private void InitializeRenderTexture()
         {
@@ -137,7 +136,7 @@ namespace UnityEssentials
         }
     }
 
-    public partial class RenderTextureCreator : MonoBehaviour
+    public partial class CameraRenderTextureHandler : MonoBehaviour
     {
         private void AdjustAspectRatioSize(float sourceAspectRatio, float referenceAspectRatio, out float targetWidth, out float targetHeight)
         {
