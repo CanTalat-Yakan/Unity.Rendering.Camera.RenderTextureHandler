@@ -24,8 +24,8 @@ namespace UnityEssentials
         public RenderTextureSettings Settings;
 
         private Camera _camera;
-        private UIElementLink _image;
         private UIElementLink _panel;
+        private UIElementLink _image;
 
         private RenderTexture _renderTexture;
 
@@ -44,9 +44,8 @@ namespace UnityEssentials
             var prefab = ResourceLoader.InstantiatePrefab("UnityEssentials_Camera_UIDocument", "Camera UI Document", this.gameObject.transform);
             if (prefab != null)
             {
-                var links = prefab.GetComponentsInChildren<UIElementLink>();
-                _panel = links[0];
-                _image = links[1];
+                _panel = prefab.transform.Find("AspectRatio")?.GetComponent<UIElementLink>();
+                _image = prefab.transform.Find("RenderTexture")?.GetComponent<UIElementLink>();
             }
         }
 
@@ -181,6 +180,8 @@ namespace UnityEssentials
 
         private void GetAspectRatios(out float screenAspectRatio, out float correctedAspectRatio, out float renderAspectRatio)
         {
+            Settings.AspectRatio = Mathf.Clamp(Settings.AspectRatio, 0, 100);
+
             screenAspectRatio = (float)Screen.width / Screen.height;
             correctedAspectRatio = Settings.AspectRatio == 0 ? screenAspectRatio : Settings.AspectRatio;
             renderAspectRatio = (float)Settings.RenderWidth / Settings.RenderHeight;
