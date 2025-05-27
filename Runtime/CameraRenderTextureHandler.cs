@@ -41,10 +41,10 @@ namespace UnityEssentials
         {
             _camera = GetComponent<Camera>();
 
-            var ui = ResourceLoader.InstantiatePrefab("UnityEssentials_Camera_UIDocument", "Camera UIDocument", this.gameObject.transform);
-            if (ui != null)
+            var prefab = ResourceLoader.InstantiatePrefab("UnityEssentials_Camera_UIDocument", "Camera UI Document", this.gameObject.transform);
+            if (prefab != null)
             {
-                var links = ui.GetComponentsInChildren<UIElementLink>();
+                var links = prefab.GetComponentsInChildren<UIElementLink>();
                 _panel = links[0];
                 _image = links[1];
             }
