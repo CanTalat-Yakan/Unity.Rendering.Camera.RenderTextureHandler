@@ -75,6 +75,9 @@ namespace UnityEssentials
             _lastAspectRatio = Settings.AspectRatio;
             _lastFilterMode = Settings.FilterMode;
             _lastHighDynamicRange = Settings.HighDynamicRange;
+
+            if(RenderTexture == null)
+                UpdateChanges();
         }
 
         [ContextMenu("Update")]
