@@ -125,7 +125,7 @@ namespace UnityEssentials
         private void InitializeUIDocument()
         {
             if (_image.LinkedElement is VisualElement iamge)
-                iamge.SetImage(_renderTexture);
+                iamge.SetBackgroundImage(_renderTexture);
         }
 
         private void AdjustAspectRatio()

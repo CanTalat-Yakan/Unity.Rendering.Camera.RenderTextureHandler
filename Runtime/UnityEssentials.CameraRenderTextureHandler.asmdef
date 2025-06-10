@@ -2,9 +2,9 @@
     "name": "UnityEssentials.CameraRenderTextureHandler",
     "rootNamespace": "UnityEssentials",
     "references": [
-        "GUID:52cfcc800872b5a42beb3d0feda1d60c",
+        "GUID:fd1e7b63e0e7d634db53519cc860fe3a",
         "GUID:3274dc8bfffe62c4191ff7300b9071c8",
-        "GUID:fd1e7b63e0e7d634db53519cc860fe3a"
+        "GUID:52cfcc800872b5a42beb3d0feda1d60c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
