@@ -44,8 +44,8 @@ namespace UnityEssentials
             var prefab = ResourceLoader.InstantiatePrefab("UnityEssentials_Camera_UIDocument", "UI Document", this.gameObject.transform);
             if (prefab != null)
             {
-                _panel = prefab.transform.Find("AspectRatio")?.GetComponent<UIElementLink>();
-                _image = prefab.transform.Find("RenderTexture")?.GetComponent<UIElementLink>();
+                _panel = prefab.transform.Find("VisualElement (AspectRatio)")?.GetComponent<UIElementLink>();
+                _image = prefab.transform.Find("VisualElement (RenderTexture)")?.GetComponent<UIElementLink>();
             }
         }
 
@@ -124,8 +124,8 @@ namespace UnityEssentials
 
         private void InitializeUIDocument()
         {
-            if (_image.LinkedElement is VisualElement iamge)
-                iamge.SetBackgroundImage(_renderTexture);
+            if (_image.LinkedElement is VisualElement image)
+                image.SetBackgroundImage(_renderTexture);
         }
 
         private void AdjustAspectRatio()
