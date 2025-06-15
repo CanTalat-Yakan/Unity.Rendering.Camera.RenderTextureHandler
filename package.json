@@ -8,7 +8,8 @@
   "dependencies": {
     "com.unityessentials.core": "1.0.0",
     "com.unityessentials.resourceloader": "1.0.0",
-    "com.unityessentials.uitoolkitextensions": "1.0.0"
+    "com.unityessentials.uitoolkitextensions": "1.0.0",
+    "com.unityessentials.uielementlinker": "1.0.0"
   },
   "keywords": [],
   "author": {
