@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 namespace UnityEssentials
@@ -10,7 +11,12 @@ namespace UnityEssentials
     {
         public int RenderWidth = 1920;
         public int RenderHeight = 1080;
-        public float AspectRatio = 16 / 9f;
+
+        [Space]
+        public float AspectRatioNumerator = 0;
+        public float AspectRatioDenominator = 0;
+
+        [Space]
         public FilterMode FilterMode = FilterMode.Point;
         public bool HighDynamicRange = false;
         public bool UseMipMap = false;
@@ -34,7 +40,8 @@ namespace UnityEssentials
         private Vector2Int _lastScreenSize;
         private Vector2Int _lastRenderSize;
         private FilterMode _lastFilterMode;
-        private float _lastAspectRatio;
+        private float _lastAspectRatioNumerator;
+        private float _lastAspectRatioDenominator;
         private bool _lastHighDynamicRange;
 
         public void Awake()
@@ -53,7 +60,8 @@ namespace UnityEssentials
         {
             if (Settings.RenderWidth != _lastRenderSize.x ||
                 Settings.RenderHeight != _lastRenderSize.y ||
-                Settings.AspectRatio != _lastAspectRatio ||
+                Settings.AspectRatioNumerator != _lastAspectRatioNumerator ||
+                Settings.AspectRatioDenominator != _lastAspectRatioDenominator ||
                 Settings.FilterMode != _lastFilterMode ||
                 Settings.HighDynamicRange != _lastHighDynamicRange)
             {
@@ -72,11 +80,12 @@ namespace UnityEssentials
 
             _lastRenderSize.x = Settings.RenderWidth;
             _lastRenderSize.y = Settings.RenderHeight;
-            _lastAspectRatio = Settings.AspectRatio;
+            _lastAspectRatioNumerator = Settings.AspectRatioNumerator;
+            _lastAspectRatioDenominator = Settings.AspectRatioDenominator;
             _lastFilterMode = Settings.FilterMode;
             _lastHighDynamicRange = Settings.HighDynamicRange;
 
-            if(RenderTexture == null)
+            if (RenderTexture == null)
                 UpdateChanges();
         }
 
@@ -84,11 +93,23 @@ namespace UnityEssentials
         public void UpdateChanges()
         {
             InitializeRenderTexture();
+            SendRenderRequest();
             InitializeUIDocument();
             UpdateScreenSize();
             AdjustAspectRatio();
 
             _isDirty = false;
+        }
+
+        private void SendRenderRequest()
+        {
+            var request = new RenderPipeline.StandardRequest();
+
+            if (RenderPipeline.SupportsRenderRequest(_camera, request))
+            {
+                request.destination = _camera.targetTexture;
+                RenderPipeline.SubmitRenderRequest(_camera, request);
+            }
         }
     }
 
@@ -183,10 +204,12 @@ namespace UnityEssentials
 
         private void GetAspectRatios(out float screenAspectRatio, out float correctedAspectRatio, out float renderAspectRatio)
         {
-            Settings.AspectRatio = Mathf.Clamp(Settings.AspectRatio, 0, 100);
+            var aspectRatio = 0f;
+            if (Settings.AspectRatioNumerator != 0 && Settings.AspectRatioDenominator != 0)
+                aspectRatio = Mathf.Clamp(Settings.AspectRatioNumerator / Settings.AspectRatioDenominator, 0, 100);
 
             screenAspectRatio = (float)Screen.width / Screen.height;
-            correctedAspectRatio = Settings.AspectRatio == 0 ? screenAspectRatio : Settings.AspectRatio;
+            correctedAspectRatio = aspectRatio == 0 ? screenAspectRatio : aspectRatio;
             renderAspectRatio = (float)Settings.RenderWidth / Settings.RenderHeight;
         }
 
