@@ -49,7 +49,7 @@ A camera’s render target is managed at runtime and exposed as a static `Render
   - The active RenderTexture is exposed as `CameraRenderTextureHandler.RenderTexture`
 
 ## Requirements
-- Unity 6000.0+ (per package manifest)
+- Unity 6000.0+
 - A Camera component on the same GameObject (enforced by `[RequireComponent]`)
 - Optional (UI preview): a `Resources` prefab named `UnityEssentials_Camera_UIDocument` containing two `UIElementLink` targets
   - Child names expected: `"VisualElement (AspectRatio)"` and `"VisualElement (RenderTexture)"`
