@@ -133,7 +133,7 @@ namespace UnityEssentials
                 autoGenerateMips = Settings.UseMipMap,
                 filterMode = Settings.FilterMode,
                 graphicsFormat = Settings.HighDynamicRange
-                    ? GraphicsFormat.R16G16B16A16_SFloat
+                    ? GraphicsFormat.B10G11R11_UFloatPack32
                     : GraphicsFormat.R8G8B8A8_SRGB
             };
             _renderTexture.Create();
