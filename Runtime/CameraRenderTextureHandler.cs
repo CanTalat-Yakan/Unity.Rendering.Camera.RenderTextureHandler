@@ -48,7 +48,7 @@ namespace UnityEssentials
         {
             _camera = GetComponent<Camera>();
 
-            var prefab = ResourceLoader.InstantiatePrefab("UnityEssentials_Camera_UIDocument", "UI Document", this.gameObject.transform);
+            var prefab = AssetResolver.InstantiatePrefab("UnityEssentials_Camera_UIDocument", "UI Document", this.gameObject.transform);
             if (prefab != null)
             {
                 _panel = prefab.transform.Find("VisualElement (AspectRatio)")?.GetComponent<UIElementLink>();
