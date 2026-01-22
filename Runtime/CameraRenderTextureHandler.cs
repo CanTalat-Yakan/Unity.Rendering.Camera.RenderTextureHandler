@@ -6,18 +6,24 @@ using UnityEngine.UIElements;
 
 namespace UnityEssentials
 {
+    public enum FillMode
+    {
+        Fit,
+        Fill,
+        Stretch
+    }
+
     [Serializable]
     public class RenderTextureSettings
     {
         public int RenderWidth = 1920;
         public int RenderHeight = 1080;
 
-        [Space]
-        public float AspectRatioNumerator = 0;
+        [Space] public float AspectRatioNumerator = 0;
         public float AspectRatioDenominator = 0;
 
-        [Space]
-        public FilterMode FilterMode = FilterMode.Point;
+        [Space] public FilterMode FilterMode = FilterMode.Point;
+        public FillMode FillMode = FillMode.Fit;
         public bool HighDynamicRange = false;
         public bool UseMipMap = false;
     }
@@ -48,7 +54,8 @@ namespace UnityEssentials
         {
             _camera = GetComponent<Camera>();
 
-            var prefab = AssetResolver.InstantiatePrefab("UnityEssentials_Camera_UIDocument", "UI Document", this.gameObject.transform);
+            var prefab = AssetResolver.InstantiatePrefab("UnityEssentials_Camera_UIDocument", "UI Document",
+                this.gameObject.transform);
             if (prefab != null)
             {
                 _panel = prefab.transform.Find("VisualElement (AspectRatio)")?.GetComponent<UIElementLink>();
@@ -126,7 +133,8 @@ namespace UnityEssentials
 
             _renderTexture = new RenderTexture((int)targetWidth, (int)targetHeight, 0)
             {
-                name = $"Camera RenderTexture @{(int)targetWidth}x{(int)targetHeight} {(Settings.HighDynamicRange ? "HDR" : "SRGB")} {Settings.FilterMode}",
+                name =
+                    $"Camera RenderTexture @{(int)targetWidth}x{(int)targetHeight} {(Settings.HighDynamicRange ? "HDR" : "SRGB")} {Settings.FilterMode}",
                 antiAliasing = 1,
                 anisoLevel = 0,
                 useMipMap = Settings.UseMipMap,
@@ -152,7 +160,8 @@ namespace UnityEssentials
         private void AdjustAspectRatio()
         {
             GetAspectRatios(out var screenAspectRatio, out var correctedAspectRatio, out _);
-            GetAspectRatioSizePercentage(screenAspectRatio, correctedAspectRatio, out var panelWidthPercentage, out var panelHeightPercentage);
+            GetAspectRatioSizePercentage(screenAspectRatio, correctedAspectRatio, out var panelWidthPercentage,
+                out var panelHeightPercentage);
 
             if (_panel.LinkedElement is VisualElement panel)
                 panel.SetSize(panelWidthPercentage, panelHeightPercentage);
@@ -161,7 +170,8 @@ namespace UnityEssentials
 
     public partial class CameraRenderTextureHandler : MonoBehaviour
     {
-        private void AdjustAspectRatioSize(float sourceAspectRatio, float referenceAspectRatio, out float targetWidth, out float targetHeight)
+        private void AdjustAspectRatioSize(float sourceAspectRatio, float referenceAspectRatio, out float targetWidth,
+            out float targetHeight)
         {
             if (referenceAspectRatio > sourceAspectRatio)
             {
@@ -177,7 +187,8 @@ namespace UnityEssentials
             }
         }
 
-        private void GetAspectRatioSizePercentage(float sourceAspectRatio, float referenceAspectRatio, out float widthPercentage, out float heightPercentage)
+        private void GetAspectRatioSizePercentage(float sourceAspectRatio, float referenceAspectRatio,
+            out float widthPercentage, out float heightPercentage)
         {
             if (referenceAspectRatio > sourceAspectRatio)
             {
@@ -202,7 +213,8 @@ namespace UnityEssentials
                 Settings.RenderHeight = 100;
         }
 
-        private void GetAspectRatios(out float screenAspectRatio, out float correctedAspectRatio, out float renderAspectRatio)
+        private void GetAspectRatios(out float screenAspectRatio, out float correctedAspectRatio,
+            out float renderAspectRatio)
         {
             var aspectRatio = 0f;
             if (Settings.AspectRatioNumerator != 0 && Settings.AspectRatioDenominator != 0)
