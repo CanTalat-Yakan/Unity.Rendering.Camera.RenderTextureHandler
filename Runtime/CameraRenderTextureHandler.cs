@@ -164,7 +164,7 @@ namespace UnityEssentials
                 out var panelHeightPercentage);
 
             if (_panel.LinkedElement is VisualElement panel)
-                panel.SetSize(panelWidthPercentage, panelHeightPercentage);
+                panel.SetSizePercentage(panelWidthPercentage, panelHeightPercentage);
         }
     }
 
