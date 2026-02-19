@@ -1,18 +1,18 @@
 {
   "name": "com.unityessentials.rendering.camera.rendertexturecreator",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "displayName": "Rendering Camera RenderTextureCreator",
   "description": "This is a part of the UnityEssentials Ecosystem",
   "unity": "6000.0",
   "unityRelease": "",
   "dependencies": {
-    "com.unityessentials.editor.attributes.button": "2.0.0",
-    "com.unityessentials.editor.attributes.info": "2.0.0",
-    "com.unityessentials.editor.attributes.onvaluechanged": "2.0.0",
-    "com.unityessentials.editor.hooks.uibuilder": "2.0.0",
-    "com.unityessentials.systems.assetresolver": "2.0.0",
-    "com.unityessentials.ui.toolkit.elementlinker": "2.0.0",
-    "com.unityessentials.ui.toolkit.extensions": "2.0.0"
+    "com.unityessentials.editor.attributes.button": "~2.0.0",
+    "com.unityessentials.editor.attributes.info": "~2.0.0",
+    "com.unityessentials.editor.attributes.onvaluechanged": "~2.0.0",
+    "com.unityessentials.editor.hooks.uibuilder": "~2.0.0",
+    "com.unityessentials.systems.assetresolver": "~2.0.0",
+    "com.unityessentials.ui.toolkit.elementlinker": "~2.0.0",
+    "com.unityessentials.ui.toolkit.extensions": "~2.0.0"
   },
   "keywords": [],
   "author": {
